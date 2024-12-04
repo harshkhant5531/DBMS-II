@@ -12,14 +12,14 @@ VALUES (1245, 'Zaroor', 2.55, 'Feel good', 1005);
 
 SELECT *FROM Songs
 
---- 4. Change the Genre of the song ‘Zaroor’ to ‘Happy’.
+--- 4. Change the Genre of the song â€˜Zaroorâ€™ to â€˜Happyâ€™.
 UPDATE Songs 
 SET genre = 'Happy' 
 WHERE Song_title = 'Zaroor';
 
 SELECT *FROM Songs
 
---- 5. Delete an Artist ‘Ed Sheeran’.
+--- 5. Delete an Artist â€˜Ed Sheeranâ€™.
 DELETE FROM Artists 
 WHERE Artist_name = 'Ed Sheeran';
 
@@ -40,7 +40,7 @@ WHERE Song_title LIKE '%Everybody%';
 --- 9. Display Artist Name in Uppercase.
 SELECT UPPER(Artist_name) AS artist_name_upper FROM Artists;
 
---- 10. Find the Square Root of the Duration of a Song ‘Good Luck’.
+--- 10. Find the Square Root of the Duration of a Song â€˜Good Luckâ€™.
 SELECT SQRT(duration) AS duration_sqrt 
 FROM Songs 
 WHERE Song_title = 'Good Luck';
@@ -65,7 +65,7 @@ HAVING COUNT(Songs.Song_id) > 5
 SELECT Songs.Song_title
 FROM Songs WHERE Songs.Album_id = (SELECT Album_id FROM Albums WHERE Album_title = 'Album1')
 
----15. Retrieve all albums name from the artist ‘Aparshakti Khurana’ (using Subquery)
+---15. Retrieve all albums name from the artist â€˜Aparshakti Khuranaâ€™ (using Subquery)
 SELECT Albums.Album_title
 FROM Albums WHERE Albums.Artist_id = (SELECT Artist_id FROM Artists WHERE Artist_name = 'Aparshakti Khurana')
 
@@ -82,7 +82,7 @@ JOIN Albums
 ON Songs.Album_id = Albums.Album_id
 WHERE Albums.Release_year = 2020
 
----18. Create a view called ‘Fav_Songs’ from the songs table having songs with song_id 101-105.
+---18. Create a view called â€˜Fav_Songsâ€™ from the songs table having songs with song_id 101-105.
 CREATE VIEW Fav_Songs AS 
 SELECT Song_title , Song_id 
 FROM Songs
@@ -91,7 +91,7 @@ WHERE Song_id BETWEEN 101 AND 105
 SELECT*FROM Fav_Songs
 
 
----19. Update a song name to ‘Jannat’ of song having song_id 101 in Fav_Songs view.
+---19. Update a song name to â€˜Jannatâ€™ of song having song_id 101 in Fav_Songs view.
 UPDATE Fav_Songs
 SET Song_title = 'Jannat'
 WHERE Song_id = 101
@@ -115,7 +115,16 @@ ORDER BY Duration
 ------------------------------------------------------(PART-B)------------------------------------------------------------------
 
 ---22. Retrieve all song titles by artists who have more than one album.
-
+SELECT Songs.Song_title
+FROM Songs
+JOIN Albums ON Songs.album_id = Albums.album_id
+JOIN Artists ON Albums.artist_id = Artists.artist_id
+WHERE Artists.artist_id IN (
+    SELECT artist_id
+    FROM Albums
+    GROUP BY artist_id
+    HAVING COUNT(album_id) > 1
+);
 
 
 ---23. Retrieve all albums along with the total number of songs.
