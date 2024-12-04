@@ -117,8 +117,8 @@ ORDER BY Duration
 ---22. Retrieve all song titles by artists who have more than one album.
 SELECT Songs.Song_title
 FROM Songs
-JOIN Albums ON Songs.album_id = Albums.album_id
-JOIN Artists ON Albums.artist_id = Artists.artist_id
+INNER JOIN Albums ON Songs.album_id = Albums.album_id
+INNER JOIN Artists ON Albums.artist_id = Artists.artist_id
 WHERE Artists.artist_id IN (
     SELECT artist_id
     FROM Albums
