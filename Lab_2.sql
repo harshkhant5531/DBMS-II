@@ -28,7 +28,7 @@ CREATE TABLE Person (
 
 -------------------------------------------------------(INSERT)-----------------------------------------------------------------------
 
----1. Department, Designation & Person Table’s INSERT, UPDATE & DELETE Procedures.
+---1. Department, Designation & Person Tableâ€™s INSERT, UPDATE & DELETE Procedures.
 
 ----DEPARTMENT
 
@@ -176,7 +176,7 @@ BEGIN
 END
 
 
----2. Department, Designation & Person Table’s SELECTBYPRIMARYKEY
+---2. Department, Designation & Person Tableâ€™s SELECTBYPRIMARYKEY
 
 ------------Person
 
@@ -209,7 +209,7 @@ BEGIN
 END
 
 
----3. Department, Designation & Person Table’s (If foreign key is available then do write join and take columns on select list)
+---3. Department, Designation & Person Tableâ€™s (If foreign key is available then do write join and take columns on select list)
 
 CREATE or ALTER proc PR_Person_DEPT_DESG_COL
 	@DepartmentName varchar(100),
@@ -251,7 +251,7 @@ BEGIN
 	WHERE DepartmentName=@DepartmentName
 END
 
----6. Create Procedure that takes department name & designation name as input and returns a table with worker’s first name, salary, joining date & department name.
+---6. Create Procedure that takes department name & designation name as input and returns a table with workerâ€™s first name, salary, joining date & department name.
  
 CREATE OR ALTER PROCEDURE PR_TAKES_DEPTNAME
 	@DepartmentName varchar(100),
@@ -311,7 +311,16 @@ END
 
 ---10. Create Procedure that Accepts Department Name and Returns Person Count.
 
-
+CREATE PROCEDURE GetPerson_Count_Department
+    @DepartmentName VARCHAR(100)
+AS
+BEGIN
+    SELECT COUNT(*) AS PersonCount
+    FROM Person P
+    INNER JOIN Department D ON P.DepartmentID = D.DepartmentID
+    WHERE D.DepartmentName = @DepartmentName
+END
+	
 ---11. Create a procedure that takes a salary value as input and returns all workers with a salary greater than input salary value along with their department and designation details.
 
 CREATE OR ALTER PROCEDURE PR_SALRAY_GREATER
@@ -358,4 +367,30 @@ END
 
 ---14. Create a procedure to list the number of workers in each department who do not have a designation assigned.
 
+CREATE OR ALTER PROCEDURE WorkersWithoutDesignationByDepartment
+AS
+BEGIN
+	SELECT Department.DepartmentName,COUNT(Person.PersonID) AS WorkerCount
+    FROM Person
+    INNER JOIN Department ON Person.DepartmentID = Department.DepartmentID
+    WHERE Person.DesignationID IS NULL
+    GROUP BY Department.DepartmentName
+END	
+
 ---15. Create a procedure to retrieve the details of workers in departments where the average salary is above 12000.
+
+CREATE OR ALTER PROCEDURE Workers_HighSalary_Departments
+AS
+BEGIN
+    SELECT Person.PersonID,Person.FirstName,Person.LastName,Person.Salary,Department.DepartmentName
+    FROM Person 
+    INNER JOIN Department  ON Person.DepartmentID = Department.DepartmentID
+    WHERE Person.DepartmentID IN (
+        SELECT 
+            DepartmentID
+        FROM Person
+        WHERE DepartmentID IS NOT NULL
+        GROUP BY DepartmentID
+        HAVING AVG(Salary) > 12000
+    )
+END
