@@ -163,7 +163,7 @@ BEGIN
         WHEN @N <= 1 THEN 'NOT PRIME'
         WHEN @N= 2 THEN 'PRIME'
         WHEN @N % 2 = 0 THEN 'NOT PRIME'
-        ELSE 'Prime'
+        ELSE 'PRIME'
     END
 END
 
