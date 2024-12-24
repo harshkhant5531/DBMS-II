@@ -160,9 +160,9 @@ AS
 BEGIN 
 	RETURN
     CASE 
-        WHEN @N <= 1 THEN 'Not Prime'
-        WHEN @N= 2 THEN 'Prime'
-        WHEN @N % 2 = 0 THEN 'Not Prime'
+        WHEN @N <= 1 THEN 'NOT PRIME'
+        WHEN @N= 2 THEN 'PRIME'
+        WHEN @N % 2 = 0 THEN 'NOT PRIME'
         ELSE 'Prime'
     END
 END
@@ -204,4 +204,10 @@ RETURN
 );
 
 
----15. Write a function that returns a table with details of all persons who joined after 1-1-1991.CREATE OR ALTER FUNCTION FN_PERSON_JDATE()RETURNS TABLEASRETURN ( SELECT * FROM PERSON WHERE JoiningDate>'1991-01-01')SELECT * FROM FN_PERSON_JDATE()
+---15. Write a function that returns a table with details of all persons who joined after 1-1-1991.
+CREATE OR ALTER FUNCTION FN_PERSON_JDATE()
+RETURNS TABLE
+AS
+RETURN ( SELECT * FROM PERSON WHERE JoiningDate>'1991-01-01')
+
+SELECT * FROM FN_PERSON_JDATE()
