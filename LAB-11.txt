@@ -1,0 +1,83 @@
+1. Find employees whose name start with E.
+--->db.emp.find({ENAME:{$regex:/^E/}})
+
+2. Find employees whose name ends with n.
+--->db.emp.find({ENAME:{$regex:/N$/i}})
+
+3. Find employees whose name starts with S or M in your collection.
+--->db.emp.find({ENAME:{$regex:/^[SM]/}})
+
+4. Find employees where city starts with A to M in your collection.
+--->db.emp.find({CITY:{$regex:/^[A-M]/}})
+
+5. Find employees where city name ends in ‘ney’.
+--->db.emp.find({CITY:{$regex:/NEY$/i}})
+
+6. Display employee info whose name contains n. (Both uppercase(N) andlowercase(n))
+--->db.emp.find({ENAME:{$regex:/[n]/i}})
+
+7. Display employee info whose name starts with E and having 5 characters.
+--->db.emp.find({ENAME:{$regex:/^E.{4}/i}})
+
+8. Display employee whose name start with S and ends in a.
+--->db.emp.find({ENAME:{$regex:/^S.*a$/i}})
+
+9. Display EID, ENAME, CITY and SALARY whose name starts with ‘Phi’.
+--->db.emp.find({ENAME:{$regex:/^phi/i}},{EID:1,ENAME:1,CITY:1,SALARY:1})
+
+10. Display ENAME, JOININGDATE and CITY whose city contains ‘dne’ as three letters in city name.
+--->db.emp.find({CITY:{$regex:/DNE/i}},{ENAME:1,CITY:1,JOININGDATE:1})
+
+11. Display ENAME, JOININGDATE and CITY who does not belongs to city London or Sydney.
+--->db.emp.find({$nor:[{city:{$regex:/[{London,Sydney}]/}}]},{ENAME:1,CITY:1,JOININGDATE:1})
+
+
+12. Find employees whose names start with 'J'.
+--->db.emp.find({ENAME:{$regex:/^J/i}})
+
+13. Find employees whose names end with 'y'.
+--->db.emp.find({ENAME:{$regex:/Y$/i}})
+
+14. Find employees whose names contain the letter 'a'.
+--->db.emp.find({ENAME:{$regex:/a/i}})
+
+15. Find employees whose names contain either 'a' or 'e'.
+--->db.emp.find({ENAME:{$regex:/[AE]/i}})
+
+16. Find employees whose names start with 'J' and end with 'n'.
+--->db.emp.find({ENAME:{$regex:/^j.*n$/i}})
+
+17. Find employees whose CITY starts with 'New'.
+--->db.emp.find({CITY:{$regex:/^new/i}})
+
+18. Find employees whose CITY does not start with 'L'
+--->db.emp.find({$nor:[{city:{$regex:/^l/}}]})
+
+19. Find employees whose CITY contains the word 'York'.
+--->db.emp.find({CITY:{$regex:/york/i}})
+
+20. Find employees whose names have two consecutive vowels (a, e, i, o, u).
+--->db.emp.find({ENAME:{$regex:/[a,e,i,o,u]{2}/i}})
+
+21. Find employees whose names have three or more letters.
+--->db.emp.find({ENAME:{$regex:/.{3,}/i}})
+
+22. Find employees whose names have exactly 4 letters.
+--->db.emp.find({ENAME:{$regex:/.{4}/i}})
+
+23. Find employees whose names start with either 'S' or 'M'.
+--->db.emp.find({$nor:[{city:{$regex:/^[sm]/}}]})
+
+24. Find employees whose names contain 'il' anywhere.
+--->db.emp.find({$nor:[{city:{$regex:/il/}}]})
+
+25. Find employees whose names do not contain 'a'.
+--->db.emp.find({$nor:[{city:{$regex:/a/}}]})
+
+26. Find employees whose names contain any digit.
+--->db.emp.find({ENAME:{$regex:/\d/}})
+
+27. Find employees whose names contain exactly one vowel.
+--->db.emp.find({ENAME:{$regex:/^[a,e,i,o,u]*[a,e,i,o,u][^aeiou]*$/i}})
+
+28. Find employees whose names start with any uppercase letter followed by any lowercase letter
